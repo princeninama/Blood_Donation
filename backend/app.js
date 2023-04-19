@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 
 // importing schemas
-const { User } = require("./schemas/user.js");
+const { User , BloodBank } = require("../backend/schemas/user.js");
 
 // connecting data base
 mongoose
@@ -40,7 +40,6 @@ passport.deserializeUser(User.deserializeUser());
 
 // ==================================================================================================================================//
 
-app.use("/api/user", require("./routes/user"));
 app.use("/api/auth", require("./routes/authentication"));
 
 app.listen(4000, () => {
