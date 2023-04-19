@@ -23,11 +23,10 @@ router.get("/signup", (req, res) => {
 });
 router.post("/signup", (req, res) => {
     const otp = String(Math.floor(Math.random() * 1000000));
-    const { fname, lname, username,b_group, profession, email, mobile, password,state } = req.body;
+    const { fname, lname, username,b_group, email, mobile, password,state } = req.body;
     const newUser = {
         name: `${fname} ${lname}`,
         username: username,
-        profession: profession,
         state : state,
         b_group : b_group,
         email: email,

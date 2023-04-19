@@ -26,11 +26,6 @@ const userSchema = Schema({
         type : String,
         required : true,
     },
-    profession: {
-        type: String,
-        required: true,
-        enum: ["USER", "BBANK"],
-    },
     otp: {
         type: String,
         required: false,
@@ -39,16 +34,43 @@ const userSchema = Schema({
         type: String,
         required: true,
     },
+    isActive: Boolean,
+});
+
+const blood_bankSchema = Schema({
+    name : {
+        type : String,
+        required : true,
+        unique : true,
+    },
+    email :{
+        type : String,
+        required : true,
+    },
+    contact : {
+        type : Number,
+        required : true,
+    },
+    state : {
+        type : String,
+        required : true,
+    },
+    addres : {
+        type : String,
+        required : true,
+    },
     isAdmin: {
         type: Boolean,
         default: false,
     },
-    isActive: Boolean,
+    otp: {
+        type: String,
+        required: false,
+    },
 });
 
 // plugin local passport strategy in user Schema
 userSchema.plugin(passportLocalMongoose);
 
 module.exports.User = mongoose.model("User", userSchema);
-module.exports.Student = mongoose.model("Student", studentSchema);
-module.exports.Faculty = mongoose.model("Faculty", facultySchema);
+module.exports.BloodBank = mongoose.model("BloodBank", blood_bankSchema);
