@@ -18,14 +18,6 @@ const userSchema = Schema({
         required: true,
         unique: true,
     },
-    image: {
-        type: String,
-        required: false,
-    },
-    b_group : {
-        type : String,
-        required : true,
-    },
     otp: {
         type: String,
         required: false,
@@ -34,43 +26,12 @@ const userSchema = Schema({
         type: String,
         required: true,
     },
+    isAdmin : Boolean,
     isActive: Boolean,
-});
-
-const blood_bankSchema = Schema({
-    name : {
-        type : String,
-        required : true,
-        unique : true,
-    },
-    email :{
-        type : String,
-        required : true,
-    },
-    contact : {
-        type : Number,
-        required : true,
-    },
-    state : {
-        type : String,
-        required : true,
-    },
-    addres : {
-        type : String,
-        required : true,
-    },
-    isAdmin: {
-        type: Boolean,
-        default: false,
-    },
-    otp: {
-        type: String,
-        required: false,
-    },
+    isFilled: Boolean,
 });
 
 // plugin local passport strategy in user Schema
 userSchema.plugin(passportLocalMongoose);
 
 module.exports.User = mongoose.model("User", userSchema);
-module.exports.BloodBank = mongoose.model("BloodBank", blood_bankSchema);

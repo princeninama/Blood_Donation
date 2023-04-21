@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const passport = require("passport");
 // const transporter = require
 const { checkAuthentication } = require("../middleware/authentication");
-const { User } = require("../schemas/user");
+const { User , BloodBank } = require("../schemas/user");
 
 //nodemailer Transporter
 var transporter = nodemailer.createTransport({
@@ -23,17 +23,33 @@ router.get("/signup", (req, res) => {
 });
 router.post("/signup", (req, res) => {
     const otp = String(Math.floor(Math.random() * 1000000));
-    const { fname, lname, username,b_group, email, mobile, password,state } = req.body;
-    const newUser = {
-        name: `${fname} ${lname}`,
-        username: username,
-        state : state,
-        b_group : b_group,
-        email: email,
-        mobile: mobile,
-        isActive: false,
-        otp: otp,
-    };
+    const {username, email, mobile, password,state,type} = req.body;
+    let newUser = {}
+    if(type === 'bloodbank'){
+        newUser = {
+            username: username,
+            state : state,
+            email: email,
+            mobile: mobile,
+            isActive: false,
+            isAdmin : true,
+            isFilled : false,
+            otp: otp,
+        };
+    }
+    else{
+        newUser = {
+            username: username,
+            state : state,
+            email: email,
+            mobile: mobile,
+            isActive: false,
+            isAdmin : false,
+            isFilled : false,
+            otp: otp,
+        };
+    }
+    
     User.register(newUser, password, async (err, user) => {
         if (err) {
             console.log(err);
@@ -62,7 +78,7 @@ router.post("/signup", (req, res) => {
                     });
                 }
             });
-            res.cookie("username", user.username, { httpOnly: true }).json({ success: true });
+            res.cookie("username", user.username, "state" , user.state, { httpOnly: true }).json({ success: true });
         }
     });
 });
@@ -97,13 +113,19 @@ router.post("/login", async (req, res) => {
                 username: req.body.username,
                 password: req.body.password,
             });
+            console.log(newUser);
             req.login(newUser, (err) => {
                 if (err) {
                     console.log(err);
                     res.json({ success: false, err });
                 } else {
                     passport.authenticate("local")(req, res, () => {
-                        res.cookie("username", user.username, { httpOnly: true }).json({ success: true });
+                        if(user.isFilled){
+                            res.send("Detailed Compleated send to home page");
+                        }
+                        else{
+                            res.send("fill your details");
+                        }
                     });
                 }
             });
@@ -134,7 +156,7 @@ router.post("/changepassword", checkAuthentication, (req, res, next) => {
 // for forgot password
 //===================================================================================================================================
 router.post("/forgotpassword", (req, res) => {
-    let userName = req.body.hidden; // here i need username of User like you can insert input hidden filed to maintain username
+    let userName = req.body.username; // here i need username of User like you can insert input hidden filed to maintain username
     User.findOne({ username: userName }, (err, user) => {
         if (err) {
             res.json({ success: false, err });
