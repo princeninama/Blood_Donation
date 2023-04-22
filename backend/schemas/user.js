@@ -26,6 +26,10 @@ const userSchema = Schema({
         type: String,
         required: true,
     },
+    address : {
+        type : String,
+        required : true,
+    },
     isAdmin : Boolean,
     isActive: Boolean,
     isFilled: Boolean,
@@ -41,20 +45,18 @@ const mainuserSchema = Schema({
         type : String,
         required : true,
     },
-    addres : {
-        type : String,
-        required : true,
-    },
     blood_grp : {
         type : String,
         required : true,
     },
-    dob : {
+    dob: {
         type : String,
         required : true,
     }
 
 });
+
+
 
 // plugin local passport strategy in user Schema
 userSchema.plugin(passportLocalMongoose);

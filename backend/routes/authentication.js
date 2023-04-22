@@ -23,7 +23,7 @@ router.get("/signup", (req, res) => {
 });
 router.post("/signup", (req, res) => {
     const otp = String(Math.floor(Math.random() * 1000000));
-    const {username, email, mobile, password,state,type} = req.body;
+    const {username, email, mobile, password,state,address,type} = req.body;
     let newUser = {}
     if(type === 'bloodbank'){
         newUser = {
@@ -31,6 +31,7 @@ router.post("/signup", (req, res) => {
             state : state,
             email: email,
             mobile: mobile,
+            address : address,
             isActive: false,
             isAdmin : true,
             isFilled : false,
@@ -43,6 +44,7 @@ router.post("/signup", (req, res) => {
             state : state,
             email: email,
             mobile: mobile,
+            address : address,
             isActive: false,
             isAdmin : false,
             isFilled : false,
