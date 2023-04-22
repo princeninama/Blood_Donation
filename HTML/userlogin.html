@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <title>Log IN</title>
+
+</head>
+
+<body>
+    <nav class=" space-x-12  py-3 bg-black text-white ">
+        <button class="ml-8"><a href="INDEX.html"> HOME</a></button>
+        <button>ABOUT US</button>
+        <button><a href="availability.html">  AVALIBILITY </a></button>
+        <button> <a href="login.html">LOG IN </a></button>
+        <button><a href="signup.html">SIGN UP</a></button>
+    </nav>
+    <img src="../images/bg log in.jpeg" alt="" class="blur-2xl mt-10 h-[45rem] w-full absolute">
+    <img src="../images/bg log in.jpeg" class="absolute mt-36" alt="">
+    <div class="text-white ml-40 shadow-red-900 rounded-lg 0 h-80 mt-[13.5rem] py-5 px-7 border-2  absolute">
+        <label class="inline-block ">Username : </label>
+        <input type="text" class="inline border bg-red-800 my-2 ml-2 rounded-lg" placeholder="   Enter Username"
+            name="username" required>
+        <label class="block">Password :
+            <input type="password" class="bg-red-800 border my-2 mx-3 rounded-lg" placeholder="   Enter Password"
+                name="password" required></label>
+        <button class="bg-white text-red-800 font-bold rounded-lg"><a href="forget.html"> Forget Password</a></button>
+        <label for="email">Email id :  </label>
+        <input type="email" id="email" name="email" class="bg-red-800 ml-4 mt-1 border rounded-lg " required><br><br>
+
+        <label for="mobile">Mobile No:</label>
+        <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" class="bg-red-800 ml-3 border rounded-lg " required><br><br>
+        
+        <label for="otp">Enter OTP:</label>
+        <input type="text" id="otp" name="otp"  class="bg-red-800 ml-3 border rounded-lg " required><br><br>
+
+        <input type="submit" class="bg-white w-80 text-red-800 font-bold rounded-lg" value="Login">
+    </div>
+
+
+</body>
+
+</html>
