@@ -13,4 +13,4 @@ const donorSchema = Schema({
     accept : Boolean
 });
 
-module.exports.donor = mongoose.model("Donor", donorSchema);
+module.exports.Donor = mongoose.model("Donor", donorSchema);

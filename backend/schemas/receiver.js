@@ -6,10 +6,10 @@ const receiverSchema = Schema({
         type : String,
         required : true,
         unique : true,
-    },
+    }, 
     blood_grp : String,
     quantity : Number,
     date : String,
 });
 
-module.exports.receive = mongoose.model("Receiver", receiverSchema);
+module.exports.Receive = mongoose.model("Receive", receiverSchema);

@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const passport = require("passport");
 // const transporter = require
 const { checkAuthentication } = require("../middleware/authentication");
-const { User , BloodBank } = require("../schemas/user");
+const { User} = require("../schemas/user");
 
 //nodemailer Transporter
 var transporter = nodemailer.createTransport({
