@@ -31,7 +31,33 @@ const userSchema = Schema({
     isFilled: Boolean,
 });
 
+const mainuserSchema = Schema({
+    username : {
+        type : String,
+        required : true,
+        unique : true,
+    },
+    name : {
+        type : String,
+        required : true,
+    },
+    addres : {
+        type : String,
+        required : true,
+    },
+    blood_grp : {
+        type : String,
+        required : true,
+    },
+    dob : {
+        type : String,
+        required : true,
+    }
+
+});
+
 // plugin local passport strategy in user Schema
 userSchema.plugin(passportLocalMongoose);
 
 module.exports.User = mongoose.model("User", userSchema);
+module.exports.MainUser = mongoose.model("MainUser" , mainuserSchema);
