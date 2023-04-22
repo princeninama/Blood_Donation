@@ -10,6 +10,7 @@ const donorSchema = Schema({
     blood_grp : String,
     quantity : Number,
     date : String,
+    accept : Boolean
 });
 
 module.exports.donor = mongoose.model("Donor", donorSchema);

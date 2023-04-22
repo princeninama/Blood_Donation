@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="./style.css">
     <title>HOME</title>
 </head>
 
@@ -19,25 +19,26 @@
     </nav>
     <!-- <img src="blood.jpeg" class="blur-sm absolute w-full" alt=""> -->
     <div class="text-3xl font-semibold font-mono text-red-500 ml-24 mt-16 underline">
-    TOTAL BLOOD AVALIBLE 🩸
+        TOTAL BLOOD AVALIBLE 🩸
     </div><br>
     <div class="inline-block ml-40 absolute">
         <label for="State font-mono">State:</label>
-        <select id="State" class=" ml-4 mt-1 border rounded-lg font-mono " name="State">
-            <option value="Arunachal Pradesh"> Arunachal Pradesh</option>
-            <option value="Andhra Pradesh">Andhra Pradesh</option>
+        <select id="State" class="State ml-4 mt-1 border rounded-lg font-mono " name="State">
+            <option value="">select</option>
+            <option value="ArunachalPradesh"> Arunachal Pradesh</option>
+            <option value="AndraPradesh">Andhra Pradesh</option>
             <option value="Assam">Assam</option>
             <option value="Bihar">Bihar</option>
             <option value="Chhattisgarh">Chhattisgarh</option>
             <option value="Goa">Goa</option>
             <option value="Gujarat"> Gujarat</option>
             <option value="Haryana">Haryana</option>
-            <option value="Himachal Pradesh">Himachal Pradesh</option>
-            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+            <option value="HimachalPradesh">Himachal Pradesh</option>
+            <option value="JammuKashmir">Jammu and Kashmir</option>
             <option value="Jharkhand">Jharkhand</option>
             <option value="Karnataka">Karnataka</option>
             <option value="Kerala">Kerala</option>
-            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="MadhyaPradesh">Madhya Pradesh</option>
             <option value="Maharashtra">Maharashtra</option>
             <option value="Manipur">Manipur</option>
             <option value="Meghalaya">Meghalaya</option>
@@ -47,17 +48,25 @@
             <option value="Punjab">Punjab</option>
             <option value="Rajasthan">Rajasthan</option>
             <option value="Sikkim">Sikkim</option>
-            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="TamilNadu">Tamil Nadu</option>
             <option value="Telangana">Telangana</option>
             <option value="Tripura">Tripura</option>
-            <option value="Uttar Pradesh">Uttar Pradesh</option>
-            <option value="West Bengal">West Bengal</option>
+            <option value="UttarPradesh">Uttar Pradesh</option>
+            <option value="WestBengal">West Bengal</option>
         </select>
-        <label for="city" class="absolute font-mono ml-4">city:</label>
-        <input type="text" id="city" class="border rounded-lg ml-24" name="city">
-        <input type="text"  id="name" class="border w-56 rounded-lg ml-7" name="bank"
+
+        <div class="inline-block ml-40 absolute">
+            <label for="District" class="absolute font-mono ml-4">District :</label>
+            <!-- <input type="text" id="city" class="border rounded-lg ml-24" name="city"> -->
+            <select class=" ml-8 mt-1 border rounded-lg font-mono " name="District" id="District">
+                <option value="">select</option>
+            </select>
+        </div>
+
+        <input type="text" id="name" class="border w-56 rounded-lg ml-7" name="bank"
             placeholder="Blood Bank or Hospital name"><br><br>
-        <button class="inline-block bg-red-700 rounded-sm w-20 h-8 text-white absolute ml-[51rem] mt-[-3.4rem]">Search</button>
+        <button
+            class="inline-block bg-red-700 rounded-sm w-20 h-8 text-white absolute ml-[51rem] mt-[-3.4rem]">Search</button>
     </div>
     <hr class="m">
     <table class="border-separate border-spacing-1 ml-40 mt-20   border absolute border-slate-500 ">
@@ -109,5 +118,6 @@
         </tr>
     </table>
 </body>
+<script src="javascript/District.js" ></script>
 
 </html>
