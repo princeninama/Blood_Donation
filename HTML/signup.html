@@ -4,26 +4,91 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
     <title>Log IN</title>
+
 </head>
 
 <body>
     <nav class=" space-x-12  py-3 bg-black text-white ">
         <button class="ml-8"><a href="INDEX.html"> HOME</a></button>
         <button>ABOUT US</button>
-        <button><a href="availability.html">  AVALIBILITY </a></button>
-        <button> <a href="login.html">LOG IN </a></button>
-        <button><a href="signup.html">SIGN UP</a></button>
+        <button><a href="availability.html"> AVALIBILITY </a></button>
+        <button> <a href="userlogin.html">LOG IN </a></button>
+        <button><a href="signup.html">SING UP</a></button>
     </nav>
     <img src="../images/bg log in.jpeg" alt="" class="blur-2xl mt-10 h-[45rem] w-full absolute">
     <img src="../images/bg log in.jpeg" class="absolute mt-36" alt="">
-    <h2 class="text-white absolute mt-52 ml-[16rem] font-bold text-xl underline"> New Registration</h2>
-    <button class="border-4 rounded-full text-white border-red-400 border-r-red-600 mt-64 absolute h-56 w-56 ml-20"> <a href="usersignup.html"> USER </a></button>
-    <button class="border-4 rounded-full text-white border-red-400 border-r-red-200 mt-64 absolute h-56 w-56 ml-96"> <a href="banksignup.html"> BLOOD BANK </a></button>
-    </div>
-   
+    <!-- <form action=""> -->
+    <div class="text-white ml-40 shadow-red-900 rounded-lg 0 h-[22rem] mt-[12.5rem] py-3 px-7 border-2  absolute">
+        <label class="inline-block ">Username : </label>
+        <input type="text" class="inline border bg-red-800 my-2 ml-2 rounded-lg" placeholder="   Enter Username"
+            name="username" required>
+        <label class="block">Create Password :
+            <input type="password" class="bg-red-800 border my-2 mx-3 rounded-lg" placeholder="   Enter Password"
+                name="password" required></label>
+        <label for="email">Email id : </label>
+        <input type="email" id="email" name="email" class="bg-red-800 ml-4 mt-1 border rounded-lg " required><br><br>
 
+        <label for="mobile">Mobile No:</label>
+        <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" class="bg-red-800 ml-3 border rounded-lg "
+            required><br><br>
+
+
+        <!-- <label for="dob" class="">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" class="bg-red-800 ml-2  border rounded-lg " required><br><br>
+
+        <label for="blood-group">Blood Group:</label>
+        <select id="blood-group" name="blood-group" class="bg-red-800 border rounded-lg ">
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+        </select><br><br> -->
+
+        <label for="State">State:</label>
+        <select id="State" class="bg-red-800 ml-4 mt-1 border rounded-lg " name="State">
+            <option value="Arunachal Pradesh"> Arunachal Pradesh</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat"> Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="West Bengal">West Bengal</option>
+        </select><br><br>
+        <input type="radio" id="user">  user 
+        <input type="radio" name="" id="bank" class="ml-9">        Blood Bank <br>
+        <a href="verify.html"> <input type="submit" class="bg-white w-80 mt-6 text-red-800 font-bold rounded-lg"
+                value="Verify">
+        </a>
+    </div>
+
+    <!-- </form> -->
 </body>
 
 </html>

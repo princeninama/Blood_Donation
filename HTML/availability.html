@@ -9,19 +9,20 @@
 </head>
 
 <body>
-    <nav class=" space-x-12  py-3 bg-black text-white ">
+    <nav class=" space-x-12 z-10 py-3 bg-black text-white ">
 
         <button class="ml-8"><a href="INDEX.html"> HOME</a></button>
         <button>ABOUT US</button>
         <button><a href="availability.html"> AVALIBILITY </a></button>
-        <button> <a href="login.html">LOG IN </a></button>
+        <button> <a href="userlogin.html">LOG IN </a></button>
         <button><a href="signup.html">SIGN UP</a></button>
     </nav>
-    <!-- <img src="blood.jpeg" class="blur-sm absolute w-full" alt=""> -->
-    <div class="text-3xl font-semibold font-mono text-red-500 ml-24 mt-16 underline">
+    <img src="images/khoooon.jpeg" class="blur-2xl fixed mt-9 w-full" alt="">
+    <div class="text-3xl absolute font-semibold font-mono text-red-500 ml-24 mt-16 underline">
         TOTAL BLOOD AVALIBLE 🩸
+
     </div><br>
-    <div class="inline-block ml-40 absolute">
+    <div class="inline-block ml-40 absolute mt-[11rem]">
         <label for="State font-mono">State:</label>
         <select id="State" class="State ml-4 mt-1 border rounded-lg font-mono " name="State">
             <option value="">select</option>
@@ -55,21 +56,21 @@
             <option value="WestBengal">West Bengal</option>
         </select>
 
-        <div class="inline-block ml-40 absolute">
-            <label for="District" class="absolute font-mono ml-4">District :</label>
+        <div class="inline-block ">
+            <label for="District" class=" font-mono ml-4">District :</label>
             <!-- <input type="text" id="city" class="border rounded-lg ml-24" name="city"> -->
-            <select class=" ml-8 mt-1 border rounded-lg font-mono " name="District" id="District">
-                <option value="">select</option>
+            <select class=" mt-1 border rounded-lg font-mono " name="District" id="District">
+                <option value="" class="w-52">select</option>
             </select>
         </div>
 
-        <input type="text" id="name" class="border w-56 rounded-lg ml-7" name="bank"
+        <input type="text" id="name" class="border w-56 rounded-lg ml-5" name="bank"
             placeholder="Blood Bank or Hospital name"><br><br>
         <button
             class="inline-block bg-red-700 rounded-sm w-20 h-8 text-white absolute ml-[51rem] mt-[-3.4rem]">Search</button>
     </div>
     <hr class="m">
-    <table class="border-separate border-spacing-1 ml-40 mt-20   border absolute border-slate-500 ">
+    <table class="border-separate border-spacing-1 ml-40 mt-[16rem]  border absolute border-slate-500 ">
         <tr>
             <th class="border-separate border-spacing-1 border border-slate-500 ">
                 sr no
@@ -87,10 +88,7 @@
                 Email
             </th>
             <th class="border-separate border-spacing-1 border w-20 border-slate-500 ">
-                Category
-            </th>
-            <th class="border-separate border-spacing-1 border w-12 border-slate-500 ">
-                Distance
+                stock
             </th>
         </tr>
         <tr>
@@ -111,9 +109,6 @@
             </td>
             <td class="border-separate border-spacing-1 border border-slate-500 ">
                 6
-            </td>
-            <td class="border-separate border-spacing-1 border border-slate-500 ">
-                7
             </td>
         </tr>
     </table>
