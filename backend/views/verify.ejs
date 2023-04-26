@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./styles/style.css" type="text/css" />
     <title>Log IN</title>
 
 </head>
@@ -19,15 +19,14 @@
     </nav>
     <img src="../images/bg log in.jpeg" alt="" class="blur-2xl mt-10 h-[45rem] w-full absolute">
     <img src="../images/bg log in.jpeg" class="absolute mt-36" alt="">
-    <form action="">
+    <form action="/check-email" method="post">
         <div class="text-white ml-40 shadow-red-900 rounded-lg 0 h-52 mt-[17.5rem] py-14 px-7 border-2  absolute">
             <label for="State">OTP:</label>
 
             <input type="text" name="otp" class="bg-red-800 border-2 rounded-md" id="otp">
             <br>
-            <a href="user.ejs"> <input type="submit" class="bg-white w-52 mt-6 text-red-800 font-bold rounded-lg"
+            <input type="submit" class="bg-white w-52 mt-6 text-red-800 font-bold rounded-lg"
                     value="Submit">
-            </a>
         </div>
 
     </form>

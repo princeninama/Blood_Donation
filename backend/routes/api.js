@@ -31,6 +31,7 @@ router.get("/signup", (req, res) => {
 router.post("/signup", (req, res) => {
     const otp = String(Math.floor(Math.random() * 1000000));
     const {username, email, mobile, password,state,address,type} = req.body;
+    console.log(type);
     let newUser = {}
     if(type === 'bloodbank'){
         newUser = {
@@ -62,7 +63,7 @@ router.post("/signup", (req, res) => {
     User.register(newUser, password, async (err, user) => {
         if (err) {
             console.log(err);
-            res.redirect("/signup");
+            res.json(err);
         } else {
             // const user = await User.findOne({ email: email });
 
@@ -80,14 +81,9 @@ router.post("/signup", (req, res) => {
                     console.log(error);
                     res.json({ success: false, error });
                 } else {
-                    res.json({
-                        success: true,
-                        authToken,
-                        user: { name: `${newUser.name}`, username: `${newUser.username}` },
-                    });
+                    res.cookie("username", user.username, { httpOnly: true }).render("verify")
                 }
             });
-            res.cookie("username", user.username, { httpOnly: true }).json({ success: true }).render("verify");
         }
     });
 });
@@ -95,6 +91,11 @@ router.post("/signup", (req, res) => {
 //================================================================================================================================//
 // login APIs
 //================================================================================================================================//
+
+router.get("/check-email" , (req , res)=> {
+    res.render("verify");
+})
+
 router.post("/check-email", (req, res) => {
     const { otp } = req.body;
     const { username } = req.cookies;
@@ -102,9 +103,13 @@ router.post("/check-email", (req, res) => {
         if (user.isActive) return res.json({ err: "User already activated" });
         if (user.otp == otp) {
             User.updateOne({ username: username }, { isActive: true }, (err) => {
-                if (err) console.log(err);
+                if (err) {console.log(err);
+                res.json(err)}
             });
-            res.redirect("/getuser");
+            if(user.isAdmin){
+                res.render("bankdetail");
+            }
+            res.redirect("/login");
         } else {
             res.render("verify", { user });
         }
@@ -121,7 +126,8 @@ router.post("/login", async (req, res) => {
         if (err) {
             console.log(err);
             res.json({ success: false, err });
-        } else if (user.isActive) {
+        }
+        else if (user.isActive) {
             const newUser = new User({
                 username: req.body.username,
                 password: req.body.password,
@@ -133,7 +139,12 @@ router.post("/login", async (req, res) => {
                     res.redirect("login");
                 } else {
                     passport.authenticate("local")(req, res, () => {
-                    res.redirect("/getuser");
+                    if(user.isAdmin){
+                        res.redirect("/getbank");
+                    }
+                    else{
+                        res.redirect("/getuser");
+                    }
                     });
                 }
             });
@@ -281,13 +292,12 @@ router.get("/getuser", checkAuthentication, (req, res) => {
     })});
 
 
-
     router.post("/bankdetail", checkAuthentication, (req, res) => {
-        const { name, Ap, An, Bp, Bn, ABp, ABn, Op, On } = req.body;
-        const username = req.user.username;
+        const { Ap, An, Bp, Bn, ABp, ABn, Op, On } = req.body;
+        const { username } = req.cookies;
         const newUser = new bbank({
             username: username,
-            name: name,
+            name: username,
             blood: {
                 Ap: Number(Ap),
                 An: Number(An),
@@ -308,7 +318,7 @@ router.get("/getuser", checkAuthentication, (req, res) => {
         })
     });
 
-    router.post("/getbank", checkAuthentication, (req, res) => {
+    router.get("/getbank", checkAuthentication, (req, res) => {
         const user = req.user;
         bbank.findOne({ username: user.username }, (err, bbank) => {
             if (err) {
