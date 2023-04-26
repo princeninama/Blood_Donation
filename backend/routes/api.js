@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const nodemailer = require("nodemailer");
+const passport = require("passport");
 const { checkAuthentication } = require("../middleware/authentication");
 const { Donor } = require("../schemas/donor");
 const { Receive } = require("../schemas/receiver");
@@ -9,6 +11,139 @@ const { bbank } = require("../schemas/blood_bank");
 router.get("/",function(req,res){
     res.render("index");
 });
+
+//nodemailer Transporter
+var transporter = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+        user: "2fc4d046191d9f",
+        pass: "d61e71f1a9d566",
+    },
+});
+
+//===================================================================================================================================//
+// signup APIs
+//===================================================================================================================================//
+router.get("/signup", (req, res) => {
+    res.render("signup");
+});
+router.post("/signup", (req, res) => {
+    const otp = String(Math.floor(Math.random() * 1000000));
+    const {username, email, mobile, password,state,address,type} = req.body;
+    let newUser = {}
+    if(type === 'bloodbank'){
+        newUser = {
+            username: username,
+            state : state,
+            email: email,
+            mobile: mobile,
+            address : address,
+            isActive: false,
+            isAdmin : true,
+            isFilled : false,
+            otp: otp,
+        };
+    }
+    else{
+        newUser = {
+            username: username,
+            state : state,
+            email: email,
+            mobile: mobile,
+            address : address,
+            isActive: false,
+            isAdmin : false,
+            isFilled : false,
+            otp: otp,
+        };
+    }
+    
+    User.register(newUser, password, async (err, user) => {
+        if (err) {
+            console.log(err);
+            res.redirect("/signup");
+        } else {
+            // const user = await User.findOne({ email: email });
+
+            let mailOptions = {
+                from: "moonpatel663@gmail.com", // sender address
+                to: `${user.email}`, // list of receivers
+                subject: "Hello Thank you fro sign Up", // Subject line
+                text: `Hii Greetings From SVNIT.
+                        please Enter The Otp To Activate Your account.`, // plain text body
+                html: `<button>${user.otp}</button>`, // html body
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log(error);
+                    res.json({ success: false, error });
+                } else {
+                    res.json({
+                        success: true,
+                        authToken,
+                        user: { name: `${newUser.name}`, username: `${newUser.username}` },
+                    });
+                }
+            });
+            res.cookie("username", user.username, { httpOnly: true }).json({ success: true }).render("verify");
+        }
+    });
+});
+
+//================================================================================================================================//
+// login APIs
+//================================================================================================================================//
+router.post("/check-email", (req, res) => {
+    const { otp } = req.body;
+    const { username } = req.cookies;
+    User.findOne({ username: username }, (err, user) => {
+        if (user.isActive) return res.json({ err: "User already activated" });
+        if (user.otp == otp) {
+            User.updateOne({ username: username }, { isActive: true }, (err) => {
+                if (err) console.log(err);
+            });
+            res.redirect("/getuser");
+        } else {
+            res.render("verify", { user });
+        }
+    });
+});
+
+router.get("/login",function(req,res){
+    res.render("userlogin");
+});
+
+router.post("/login", async (req, res) => {
+    User.findOne({ username: req.body.username }, (err, user) => {
+        console.log(user);
+        if (err) {
+            console.log(err);
+            res.json({ success: false, err });
+        } else if (user.isActive) {
+            const newUser = new User({
+                username: req.body.username,
+                password: req.body.password,
+            });
+            console.log(newUser);
+            req.login(newUser, (err) => {
+                if (err) {
+                    console.log(err);
+                    res.redirect("login");
+                } else {
+                    passport.authenticate("local")(req, res, () => {
+                    res.redirect("/getuser");
+                    });
+                }
+            });
+        } else {
+            res.render("verify");
+        }
+    });
+});
+
+
 
 router.post("/donate", checkAuthentication, function (req, res) {
     const user = req.user;
@@ -123,25 +258,7 @@ router.post("/receive", checkAuthentication, function (req, res) {
     });
 });
 
-// router.post("/userdetail" ,checkAuthentication , (req , res) => {
-//     const {name,addres,blood_grp,dob} = req.body;
-//     const username = req.user.username;
-//     const newUser = new MainUser({
-//         username : username,
-//         name : name,
-//         addres : addres,
-//         blood_grp : blood_grp,
-//         dob : dob,
-//     });
-//     newUser.save().then(() => {
-//         res.send("User Detail done");
-//     }).catch((err) => {
-//         console.log(err);
-//         res.send("error in userdetail");
-//     })
-// });
-
-router.post("/getuser", checkAuthentication, (req, res) => {
+router.get("/getuser", checkAuthentication, (req, res) => {
     const user = req.user;
     const state = user.state;
     User.find({ state: state }, (err, bbanklist) => {

@@ -47,7 +47,7 @@ passport.deserializeUser(User.deserializeUser());
 // ==================================================================================================================================//
 
 app.use("/" , require("./routes/api"));
-app.use("/api/auth", require("./routes/authentication"));
+app.use("/auth", require("./routes/authentication"));
 
 
 app.listen(4000, () => {
