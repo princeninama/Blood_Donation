@@ -72,6 +72,7 @@
     </div>
     <hr class="m">
     <table class="border-separate border-spacing-1 ml-40 mt-[16rem]  border absolute border-slate-500 ">
+
         <tr>
             <th class="border-separate border-spacing-1 border border-slate-500 ">
                 sr no
@@ -92,12 +93,13 @@
                 stock
             </th>
         </tr>
+        <% for(let i=0;i<userdata.length;i++){ %>
         <tr>
             <td class="border-separate border-spacing-1 border border-slate-500 ">
-                1
+                <%= i+1 %>
             </td>
             <td class="border-separate border-spacing-1 border border-slate-500 ">
-                2
+                <%= userdata.name %>
             </td>
             <td class="border-separate border-spacing-1 border border-slate-500 ">
                 3
@@ -112,6 +114,7 @@
                 6
             </td>
         </tr>
+        <% } %> 
     </table>
     </form>
 </body>

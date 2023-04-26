@@ -19,7 +19,7 @@ var transporter = nodemailer.createTransport({
 // signup APIs
 //===================================================================================================================================//
 router.get("/signup", (req, res) => {
-    res.send("SignUp Page");
+    res.render("signup");
 });
 router.post("/signup", (req, res) => {
     const otp = String(Math.floor(Math.random() * 1000000));
@@ -55,7 +55,7 @@ router.post("/signup", (req, res) => {
     User.register(newUser, password, async (err, user) => {
         if (err) {
             console.log(err);
-            res.json({ success: false, error: err.message });
+            res.redirect("/signup");
         } else {
             // const user = await User.findOne({ email: email });
 
@@ -80,7 +80,7 @@ router.post("/signup", (req, res) => {
                     });
                 }
             });
-            res.cookie("username", user.username, "state" , user.state, { httpOnly: true }).json({ success: true });
+            res.cookie("username", user.username, { httpOnly: true }).json({ success: true }).render("verify");
         }
     });
 });
@@ -97,11 +97,15 @@ router.post("/check-email", (req, res) => {
             User.updateOne({ username: username }, { isActive: true }, (err) => {
                 if (err) console.log(err);
             });
-            res.json({ success: true });
+            res.redirect("/getuser");
         } else {
-            res.render("checkEmail", { user });
+            res.render("verify", { user });
         }
     });
+});
+
+router.get("/login",function(req,res){
+    res.render("userlogin");
 });
 
 router.post("/login", async (req, res) => {
@@ -119,24 +123,15 @@ router.post("/login", async (req, res) => {
             req.login(newUser, (err) => {
                 if (err) {
                     console.log(err);
-                    res.json({ success: false, err });
+                    res.redirect("login");
                 } else {
                     passport.authenticate("local")(req, res, () => {
-                        if(user.isFilled){
-                            res.send("Detailed Compleated send to home page");
-                        }
-                        else{
-                            res.send("fill your details");
-                        }
+                    res.redirect("/getuser");
                     });
                 }
             });
         } else {
-            res.json({
-                err: "User Is Not Active Please Verify Your Email",
-                username: user.username,
-                email: user.email,
-            });
+            res.render("verify");
         }
     });
 });
@@ -150,7 +145,7 @@ router.post("/changepassword", checkAuthentication, (req, res, next) => {
         if (err) {
             return res.json(err);
         }
-        return res.json({ success: true });
+        return res.redirect("/getuser");
     });
 });
 
@@ -180,7 +175,7 @@ router.post("/forgotpassword", (req, res) => {
                     console.log(error);
                     res.json(error);
                 } else {
-                    res.json(user);
+                    res.render("forget");
                 }
             });
         }
