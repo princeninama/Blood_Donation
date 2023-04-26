@@ -8,20 +8,58 @@ const { bbank } = require("../schemas/blood_bank");
 
 router.post("/donate", checkAuthentication ,function(req,res){
     const user = req.user;
-    const {bloodbank , blood_grp} = req.body
+    const {blood_group, quantity} = req.body;
     const donate = new Donor({
         username : user.username,
-        blood_grp : blood_grp,
-        quantity : Number(req.body.quantity),
+        blood_grp : req.body.blood_group,
+        quantity : req.body.quantity,
         date : req.body.date,
         accept : false
+    });
+    let blood = {};
+    bbank.findOne({username : user.username} , (err , bank) => {
+        if(err){
+            console.log(err);
+        }
+        blood = bank.blood;
+        if(blood_group == "Ap"){
+           blood.Ap = blood.Ap + Number(quantity); 
+        }
+        else if(blood_group == "An"){
+            blood.An = blood.An + Number(quantity);
+        }
+        else if(blood_group == "Bp"){
+            blood.Bp = blood.Bp + Number(quantity);
+        }
+        else if(blood_group == "Bn"){
+            blood.Bn = blood.Bn + Number(quantity);
+        }
+        else if(blood_group == "ABp"){
+            blood.ABp = blood.ABp + Number(quantity);
+        }
+        else if(blood_group == "ABn"){
+            blood.ABn = blood.ABn + Number(quantity);
+        }
+        else if(blood_group == "Op"){
+            blood.Op = blood.Op + Number(quantity);
+        }
+        else if(blood_group == "On"){
+            blood.On = blood.On + Number(quantity);
+        }
+        bbank.updateOne({username : user.username} , {blood : blood} , (err , docs) => {
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(docs);
+            }
+        });
     });
     donate.save().then(() => {
                 res.send("donotaion accepted");
             }).catch((err) => {
                 console.log(err);
             });
-
 });
 
 router.post("/receive", checkAuthentication ,function(req,res){
@@ -33,6 +71,47 @@ router.post("/receive", checkAuthentication ,function(req,res){
         date : req.body.date,
         accept : false
     });
+
+    let blood = {};
+    bbank.findOne({username : user.username} , (err , bank) => {
+        if(err){
+            console.log(err);
+        }
+        blood = bank.blood;
+        if(blood_group == "Ap"){
+           blood.Ap = blood.Ap - Number(quantity); 
+        }
+        else if(blood_group == "An"){
+            blood.An = blood.An - Number(quantity);
+        }
+        else if(blood_group == "Bp"){
+            blood.Bp = blood.Bp - Number(quantity);
+        }
+        else if(blood_group == "Bn"){
+            blood.Bn = blood.Bn - Number(quantity);
+        }
+        else if(blood_group == "ABp"){
+            blood.ABp = blood.ABp - Number(quantity);
+        }
+        else if(blood_group == "ABn"){
+            blood.ABn = blood.ABn - Number(quantity);
+        }
+        else if(blood_group == "Op"){
+            blood.Op = blood.Op - Number(quantity);
+        }
+        else if(blood_group == "On"){
+            blood.On = blood.On - Number(quantity);
+        }
+        bbank.updateOne({username : user.username} , {blood : blood} , (err , docs) => {
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(docs);
+            }
+        });
+    });
+
     receive.save().then(() => {
         res.send("receive requested");
     }).catch((err) => {
