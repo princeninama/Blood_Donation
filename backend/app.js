@@ -16,6 +16,9 @@ mongoose
     .then((res) => console.log("Connected to MongoDB"))
     .catch((err) => console.log("ERROR: ", err));
 
+
+app.set('view engine' , 'ejs')    
+app.use(express.static('public'));
 app.use(cors({ origin: true }));
 app.use(cookieParser());
 app.use(bodyParser.json());
