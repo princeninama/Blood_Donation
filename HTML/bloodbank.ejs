@@ -25,17 +25,17 @@
                 <legend class="bg-slate-200 rounded-tr-md ml-4 px-5 text-black">Bank Details:</legend>
                 <label for="fname">Name:</label>
                 <p class="inline">
-                    prince's Bank
+                    <%= user.username %>
                 </p> <br><br>
 
                 <label for="email">Email:</label>
-                <p class="inline">princeninama@gmail.com</p><br><br>
+                <p class="inline"><%= user.email %></p><br><br>
                 <label for="email">Mobile No:</label>
-                <p class="inline">7490034305</p><br><br>
+                <p class="inline"><%= user.mobile %></p><br><br>
                 <label for="email">State:</label>
-                <p class="inline">Ahmedabad</p><br><br>
+                <p class="inline"><%= user.state %></p><br><br>
                 <label for="email">Address:</label>
-                <p class="inline">gokul duplex naroda Ahmedabad</p>
+                <p class="inline"><%= user.address %></p>
             </fieldset>
 
 
@@ -58,7 +58,7 @@
                             A+
                         </td>
                         <td class="border-2">
-
+                            <%= bbank.blood.Ap %>
                         </td>
                     </tr>
                     <tr>
@@ -66,7 +66,7 @@
                             A-
                         </td>
                         <td class="border-2">
-
+                            <%= bbank.blood.An %>
                         </td>
                     </tr>
                     <tr>
@@ -74,7 +74,7 @@
                             B+
                         </td>
                         <td class="border-2">
-
+                            <%= bbank.blood.Bp %>
                         </td>
                     </tr>
                     <tr>
@@ -82,7 +82,7 @@
                             B-
                         </td>
                         <td class="border-2">
-
+                            <%= bbank.blood.Bn %>
                         </td>
                     </tr>
                     <tr>
@@ -90,7 +90,7 @@
                             AB+
                         </td>
                         <td class="border-2">
-
+                            <%= bbank.blood.ABp %>
                         </td>
                     </tr>
                     <tr>
@@ -98,7 +98,7 @@
                             AB-
                         </td>
                         <td class="border-2">
-
+                            <%= bbank.blood.ABn %>
                         </td>
                     </tr>
                     <tr>
@@ -106,7 +106,7 @@
                             O+
                         </td>
                         <td class="border-2">
-
+                            <%= bbank.blood.Op %>
                         </td>
                     </tr>
                     <tr>
@@ -114,7 +114,7 @@
                             O-
                         </td>
                         <td class="border-2">
-
+                            <%= bbank.blood.On %>
                         </td>
                     </tr>
                     <tr>
@@ -122,7 +122,7 @@
                             Total:
                         </td>
                         <td class="border-2">
-
+                            <%= bbank.blood.total %>
                         </td>
                     </tr>
 

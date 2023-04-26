@@ -10,10 +10,10 @@
 
 <body>
     <nav class=" space-x-12 fixed py-3 bg-black w-full z-10 text-white ">
-        <button class="ml-8"><a href="INDEX.html"> HOME</a></button>
+        <button class="ml-8"><a href="INDEX.ejs"> HOME</a></button>
 
-        <button><a href="availability.html"> AVALIBILITY </a></button>
-        <button> <a href="userlogin.html">LOG IN </a></button>
+        <button><a href="availability.ejs"> AVALIBILITY </a></button>
+        <button> <a href="userlogin.ejs">LOG IN </a></button>
     </nav>
     <img src="images/bb.png" alt="" class="blur-2xl  mt-20 h-[45rem] w-full fixed">
     <img src="images/bb.png" class="fixed mt-[15rem] ml-[45rem]" alt="">
@@ -25,17 +25,17 @@
                 <legend class="bg-slate-200 rounded-tr-md ml-4 px-5 text-black">User Details:</legend>
                 <label for="fname">Name:</label>
                 <p class="inline">
-                    prince
+                    <%= mainuser.name %>
                 </p> <br><br>
 
                 <label for="email">Email:</label>
-                <p class="inline">princeninama@gmail.com</p><br><br>
+                <p class="inline"><%= user.email %></p><br><br>
                 <label for="email">Mobile No:</label>
-                <p class="inline">7490034305</p><br><br>
+                <p class="inline"><%= user.mobile %></p><br><br>
                 <label for="email">State:</label>
-                <p class="inline">Ahmedabad</p><br><br>
+                <p class="inline"><%= user.state %></p><br><br>
                 <label for="email">Address:</label>
-                <p class="inline">gokul duplex naroda Ahmedabad</p>
+                <p class="inline"><%= user.address %></p>
             </fieldset>
 
 
@@ -46,37 +46,31 @@
                 <label for="bldgrp">
                     Your Blood Group
                 </label>
-                <select name="" class="w-16 ml-3 rounded-md" id="bldgrp">
+                <select name="blood_group" class="w-16 ml-3 rounded-md" id="bldgrp">
                     <option value="">select</option>
-                    <option value="">A+</option>
-                    <option value="">A-</option>
-                    <option value="">B+</option>
-                    <option value="">B-</option>
-                    <option value="">O+</option>
-                    <option value="">O-</option>
-                    <option value="">AB+</option>
-                    <option value="">AB-</option>
+                    <option value="Ap">A+</option>
+                    <option value="An">A-</option>
+                    <option value="Bp">B+</option>
+                    <option value="Bn">B-</option>
+                    <option value="Op">O+</option>
+                    <option value="On">O-</option>
+                    <option value="ABp">AB+</option>
+                    <option value="ABn">AB-</option>
                 </select><br><br>
 
                 <label for="amnt">amount of bottle :</label>
-                <input type="number" class="w-9 rounded-sm ml-3" id="amnt"><br><br>
+                <input name = "quantity" type="number" class="w-9 rounded-sm ml-3" id="amnt"><br><br>
 
                 <label for="amnt">Today's Date :</label>
-                <input type="date" class="ml-3 inline rounded-md" id="date"><br><br>
+                <input name = "date" type="date" class="ml-3 inline rounded-md" id="date"><br><br>
 
                 <label for="bldbnk">
                     Avalible Blood Bank:
-                </label>
-                <select name="" class="w-16 ml-3 rounded-md" id="bldbnk">
-                    <option value="">select</option>
-                    <option value="">A+</option>
-                    <option value="">A-</option>
-                    <option value="">B+</option>
-                    <option value="">B-</option>
-                    <option value="">O+</option>
-                    <option value="">O-</option>
-                    <option value="">AB+</option>
-                    <option value="">AB-</option>
+                </label> 
+                <select name="username" class="w-16 ml-3 rounded-md" id="bldbnk">
+                    <% banklist.forEach(function(bank) { %>
+                    <option value=""> <%= bank.name %> </option>
+                    <% }) %>
                 </select><br><br>
             </div>
             <button
