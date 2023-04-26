@@ -3,12 +3,17 @@ const { Schema } = mongoose;
 const { Blood } = require("../schemas/blood");
 
 const bbankSchema = Schema({
-    name : {
+    username : {
         type : String,
         required : true,
-        unique : true,
+        unique : true
     },
-    blood : Blood,
+    name : {
+        type : String,
+    },
+    blood : {
+        type : Object,
+    }
 });
 
 module.exports.bbank = mongoose.model("BBank", bbankSchema);

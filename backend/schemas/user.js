@@ -26,12 +26,40 @@ const userSchema = Schema({
         type: String,
         required: true,
     },
+    address : {
+        type : String,
+        required : true,
+    },
     isAdmin : Boolean,
     isActive: Boolean,
     isFilled: Boolean,
 });
 
+const mainuserSchema = Schema({
+    username : {
+        type : String,
+        required : true,
+        unique : true,
+    },
+    name : {
+        type : String,
+        required : true,
+    },
+    blood_grp : {
+        type : String,
+        required : true,
+    },
+    dob: {
+        type : String,
+        required : true,
+    }
+
+});
+
+
+
 // plugin local passport strategy in user Schema
 userSchema.plugin(passportLocalMongoose);
 
 module.exports.User = mongoose.model("User", userSchema);
+module.exports.MainUser = mongoose.model("MainUser" , mainuserSchema);
