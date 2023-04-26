@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="./styles/style.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="./styles/style.css" type="text/css" /> -->
     <title>Log IN</title>
 </head>
 
@@ -17,26 +17,9 @@
     </nav>
     <img src="images/bheart.jpeg" alt="" class="blur-2xl  mt-20 h-[45rem] w-full fixed">
     <img src="images/bheart.jpeg" class="fixed mt-40 mx-10 h-[30rem] ml-[45rem]" alt="">
-    <form action="">
+    <form action="/bankdetail" method="post">
         <div class="bg-black h-[64rem] ">
-            <fieldset
-                class=" border-2 absolute mt-40 px-5 font-bold font-mono py-5 rounded-tr-2xl ml-24 h-[20rem] w-[20rem]">
 
-                <legend class="bg-slate-200 rounded-tr-md ml-4 px-5 text-black">Bank Details:</legend>
-                <label for="fname">Name:</label>
-                <p class="inline">
-                    <%= user.username %>
-                </p> <br><br>
-
-                <label for="email">Email:</label>
-                <p class="inline"><%= user.email %></p><br><br>
-                <label for="email">Mobile No:</label>
-                <p class="inline"><%= user.mobile %></p><br><br>
-                <label for="email">State:</label>
-                <p class="inline"><%= user.state %></p><br><br>
-                <label for="email">Address:</label>
-                <p class="inline"><%= user.address %></p>
-            </fieldset>
 
 
 
@@ -58,7 +41,7 @@
                             A+
                         </td>
                         <td class="border-2">
-                            <%= bbank.blood.Ap %>
+                <input type="number" class="bg=bg-slate-200" name="Ap" >
                         </td>
                     </tr>
                     <tr>
@@ -66,7 +49,7 @@
                             A-
                         </td>
                         <td class="border-2">
-                            <%= bbank.blood.An %>
+                <input type="number" class="bg=bg-slate-200" name="An" >
                         </td>
                     </tr>
                     <tr>
@@ -74,7 +57,7 @@
                             B+
                         </td>
                         <td class="border-2">
-                            <%= bbank.blood.Bp %>
+                <input type="number" class="bg=bg-slate-200" name="Bp" >
                         </td>
                     </tr>
                     <tr>
@@ -82,7 +65,7 @@
                             B-
                         </td>
                         <td class="border-2">
-                            <%= bbank.blood.Bn %>
+                <input type="number" class="bg=bg-slate-200" name="Bn" >
                         </td>
                     </tr>
                     <tr>
@@ -90,7 +73,7 @@
                             AB+
                         </td>
                         <td class="border-2">
-                            <%= bbank.blood.ABp %>
+                    <input type="number" class="bg=bg-slate-200" name="ABp" >
                         </td>
                     </tr>
                     <tr>
@@ -98,7 +81,7 @@
                             AB-
                         </td>
                         <td class="border-2">
-                            <%= bbank.blood.ABn %>
+                    <input type="number" class="bg=bg-slate-200" name="ABn" >
                         </td>
                     </tr>
                     <tr>
@@ -106,7 +89,7 @@
                             O+
                         </td>
                         <td class="border-2">
-                            <%= bbank.blood.Op %>
+                <input type="number" class="bg=bg-slate-200" name="Op" >
                         </td>
                     </tr>
                     <tr>
@@ -114,19 +97,12 @@
                             O-
                         </td>
                         <td class="border-2">
-                            <%= bbank.blood.On %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="border-2 px-14">
-                            Total:
-                        </td>
-                        <td class="border-2">
-                            <%= bbank.blood.total %>
+                <input type="number" class="bg=bg-slate-200" name="On" >
                         </td>
                     </tr>
 
                 </table>
+                <input type="submit" value="submit">
             </fieldset>
     </form>
 </body>

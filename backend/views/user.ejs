@@ -12,12 +12,11 @@
     <nav class=" space-x-12 fixed py-3 bg-black w-full z-10 text-white ">
         <button class="ml-8"><a href="INDEX.ejs"> HOME</a></button>
 
-        <button><a href="availability.ejs"> AVALIBILITY </a></button>
+        <button><a href="/bbank_filter"> AVALIBILITY </a></button>
         <button> <a href="userlogin.ejs">LOG IN </a></button>
     </nav>
     <img src="images/bb.png" alt="" class="blur-2xl  mt-20 h-[45rem] w-full fixed">
     <img src="images/bb.png" class="fixed mt-[15rem] ml-[45rem]" alt="">
-    <form action="">
         <div class="bg-black h-[64rem] ">
             <fieldset
                 class=" border-2 absolute mt-40 px-5 font-bold font-mono py-5 rounded-tr-2xl ml-24 h-[20rem] w-[20rem]">
@@ -39,7 +38,7 @@
             </fieldset>
 
 
-
+            <form method="post">
             <div
                 class="h-[22rem] ml-24 py-6 px-5 border-2 font-semibold  w-[20rem] mt-[40rem] rounded-br-3xl shadow-2xl absolute">
 
@@ -67,16 +66,16 @@
                 <label for="bldbnk">
                     Avalible Blood Bank:
                 </label> 
-                <select name="username" class="w-16 ml-3 rounded-md" id="bldbnk">
+                <select name="bloodbank" class="w-16 ml-3 rounded-md" id="bldbnk">
                     <% banklist.forEach(function(bank) { %>
-                    <option value=""> <%= bank.name %> </option>
+                    <option value= <%= bank.name %>> <%= bank.name %> </option>
                     <% }) %>
                 </select><br><br>
             </div>
-            <button
+            <button type="submit" formaction="/donate"
                 class="border-4 rounded-full text-black shadow-2xl font-bold font-mono border-slate-500 border-r-slate-300 mt-[54rem] absolute h-[6rem] w-[6rem] ml-32">Donate
             </button>
-            <button
+            <button type="submit" formaction="/receive"
                 class="border-4 rounded-full text-black shadow-2xl font-bold font-mono border-slate-400 border-r-slate-100 mt-[54rem] absolute h-[6rem] w-[6rem] ml-72">Recive
             </button>
         </div>

@@ -14,11 +14,10 @@ router.get("/",function(req,res){
 
 //nodemailer Transporter
 var transporter = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
+    service : 'gmail',
     auth: {
-        user: "2fc4d046191d9f",
-        pass: "d61e71f1a9d566",
+        user: "u21cs086@coed.svnit.ac.in",
+        pass: "blnpp8923jqQ@",
     },
 });
 
@@ -68,7 +67,7 @@ router.post("/signup", (req, res) => {
             // const user = await User.findOne({ email: email });
 
             let mailOptions = {
-                from: "moonpatel663@gmail.com", // sender address
+                from: "u21cs086@coed.svnit.ac.in", // sender address
                 to: `${user.email}`, // list of receivers
                 subject: "Hello Thank you fro sign Up", // Subject line
                 text: `Hii Greetings From SVNIT.
@@ -109,7 +108,9 @@ router.post("/check-email", (req, res) => {
             if(user.isAdmin){
                 res.render("bankdetail");
             }
+            else{
             res.redirect("/login");
+            }
         } else {
             res.render("verify", { user });
         }
@@ -158,20 +159,12 @@ router.post("/login", async (req, res) => {
 
 router.post("/donate", checkAuthentication, function (req, res) {
     const user = req.user;
-    const { blood_group, quantity } = req.body;
-    const donate = new Donor({
-        username: user.username,
-        blood_grp: req.body.blood_group,
-        quantity: req.body.quantity,
-        date: req.body.date,
-        accept: false
-    });
-    let blood = {};
-    bbank.findOne({ username: user.username }, (err, bank) => {
+    const { blood_group, quantity , bloodbank } = req.body;
+    bbank.findOne({ username: bloodbank}, (err, bank) => {
         if (err) {
             console.log(err);
         }
-        blood = bank.blood;
+        let blood = bank.blood;
         if (blood_group == "Ap") {
             blood.Ap = blood.Ap + Number(quantity);
         }
@@ -196,38 +189,25 @@ router.post("/donate", checkAuthentication, function (req, res) {
         else if (blood_group == "On") {
             blood.On = blood.On + Number(quantity);
         }
-        bbank.updateOne({ username: user.username }, { blood: blood }, (err, docs) => {
+        blood.total = blood.total + Number(quantity);
+        bbank.updateOne({ username: bloodbank }, { blood: blood }, (err, docs) => {
             if (err) {
                 console.log(err);
             }
             else {
-                console.log(docs);
+                res.redirect("/getuser");
             }
         });
-    });
-    donate.save().then(() => {
-        res.send("donotaion accepted");
-    }).catch((err) => {
-        console.log(err);
     });
 });
 
 router.post("/receive", checkAuthentication, function (req, res) {
-    const user = req.user;
-    const receive = new Receive({
-        username: user.username,
-        blood_grp: req.body.blood_group,
-        quantity: req.body.quentity,
-        date: req.body.date,
-        accept: false
-    });
-
-    let blood = {};
-    bbank.findOne({ username: user.username }, (err, bank) => {
+    const { blood_group, quantity , bloodbank } = req.body;
+    bbank.findOne({ username: bloodbank}, (err, bank) => {
         if (err) {
             console.log(err);
         }
-        blood = bank.blood;
+        let blood = bank.blood;
         if (blood_group == "Ap") {
             blood.Ap = blood.Ap - Number(quantity);
         }
@@ -252,22 +232,17 @@ router.post("/receive", checkAuthentication, function (req, res) {
         else if (blood_group == "On") {
             blood.On = blood.On - Number(quantity);
         }
-        bbank.updateOne({ username: user.username }, { blood: blood }, (err, docs) => {
+        blood.total = blood.total - Number(quantity);
+        bbank.updateOne({ username: bloodbank }, { blood: blood }, (err, docs) => {
             if (err) {
                 console.log(err);
             }
             else {
-                console.log(docs);
+                res.redirect("/getuser");
             }
         });
     });
-
-    receive.save().then(() => {
-        res.send("receive requested");
-    }).catch((err) => {
-        console.log(err);
     });
-});
 
 router.get("/getuser", checkAuthentication, (req, res) => {
     const user = req.user;
@@ -292,7 +267,7 @@ router.get("/getuser", checkAuthentication, (req, res) => {
     })});
 
 
-    router.post("/bankdetail", checkAuthentication, (req, res) => {
+    router.post("/bankdetail", (req, res) => {
         const { Ap, An, Bp, Bn, ABp, ABn, Op, On } = req.body;
         const { username } = req.cookies;
         const newUser = new bbank({
@@ -311,10 +286,10 @@ router.get("/getuser", checkAuthentication, (req, res) => {
             }
         });
         newUser.save().then(() => {
-            res.send("Bank Detail done");
+            res.redirect("/login");
         }).catch((err) => {
             console.log(err);
-            res.send("error in userdetail");
+            res.json(err);
         })
     });
 
@@ -329,30 +304,42 @@ router.get("/getuser", checkAuthentication, (req, res) => {
         })
     });
 
+    router.get("/bbank_filter" , checkAuthentication , (req , res) => {
+        res.render("availability" , {userdata : [] , banklist : []})
+    });
+
     router.post("/bbank_filter", checkAuthentication, (req, res) => {
         let { name, state } = req.body;
         if (name) {
-            bbank.findOne({ name: name }, (err, b_bank) => {
-                res.json(b_bank);
-            });
+           bbank.findOne({username : name} , (err , blood) => {
+                User.findOne({username : name} , (err , user) => {
+                    let list = [user]
+                    let list2 = [blood]
+                    res.render("availability" ,{userdata : list , banklist : list2});
+                })
+           })
         }
-        User.find({ state: state }, (err, bbanklist) => {
+        else{
+        bbank.find({ state: state , isAdmin : true }, (err, bbanklist) => {
             const fromArr = bbanklist.map(({ username }) => username);
-            bbank.find({ username: { $in: fromArr } }, (err, bloodbank) => {
+            User.find({ username: { $in: fromArr } }, (err, bloodbank) => {
                 const userData = bloodbank.map(({
                     username: username,
-                    name,
-                    blood,
+                    address,
+                    mobile,
+                    email
                 }) => {
                     return {
                         username,
-                        name,
-                        blood,
+                        address,
+                        mobile,
+                        email
                     };
                 });
-                res.render("availability", { userdata: userData, banklist: bbanklist });
+                res.render( "availability" ,{ userdata: userData, banklist: bbanklist });
             })
         });
+    }
 
     });
 

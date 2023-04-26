@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/style.css" type="text/css" />
     <title>HOME</title>
 </head>
 
@@ -22,7 +22,7 @@
         TOTAL BLOOD AVALIBLE 🩸
 
     </div><br>
-    <form action="">
+    <form action="/bbank_filter" method="post">
     <div class="inline-block ml-40 absolute mt-[11rem]">
         <label for="State font-mono">State:</label>
         <select id="State" class="State ml-4 mt-1 border rounded-lg font-mono " name="State">
@@ -65,10 +65,11 @@
             </select>
         </div>
 
-        <input type="text" id="name" class="border w-56 rounded-lg ml-5" name="bank"
+        <input type="text" id="name" class="border w-56 rounded-lg ml-5" name="name"
             placeholder="Blood Bank or Hospital name"><br><br>
-        <button
+        <button type="submit"
             class="inline-block bg-red-700 rounded-sm w-20 h-8 text-white absolute ml-[51rem] mt-[-3.4rem]">Search</button>
+    </form>
     </div>
     <hr class="m">
     <table class="border-separate border-spacing-1 ml-40 mt-[16rem]  border absolute border-slate-500 ">
@@ -99,19 +100,27 @@
                 <%= i+1 %>
             </td>
             <td class="border-separate border-spacing-1 border border-slate-500 ">
-                <%= userdata.name %>
+                <%= userdata[i].username %>
             </td>
             <td class="border-separate border-spacing-1 border border-slate-500 ">
-                3
+                <%= userdata[i].address %>
             </td>
             <td class="border-separate border-spacing-1 border border-slate-500 ">
-                4
+                <%= userdata[i].mobile %>
             </td>
             <td class="border-separate border-spacing-1 border border-slate-500 ">
-                5
+                <%= userdata[i].email %>
             </td>
             <td class="border-separate border-spacing-1 border border-slate-500 ">
-                6
+                A+ : <%= banklist[i].blood.Ap %>
+                B+ :  <%= banklist[i].blood.Bp %>
+                A- : <%= banklist[i].blood.An %>
+                B- : <%= banklist[i].blood.Bn %>
+                AB+ :<%= banklist[i].blood.ABp %>
+                AB- : <%= banklist[i].blood.ABn %>
+                O+ : <%= banklist[i].blood.Op %>
+                O- : <%= banklist[i].blood.On %>
+                TOTAL : <%= banklist[i].blood.total %>
             </td>
         </tr>
         <% } %> 
