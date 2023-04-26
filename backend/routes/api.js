@@ -8,10 +8,11 @@ const { bbank } = require("../schemas/blood_bank");
 
 router.post("/donate", checkAuthentication ,function(req,res){
     const user = req.user;
+    const {bloodbank , blood_grp} = req.body
     const donate = new Donor({
         username : user.username,
-        blood_grp : req.body.blood_group,
-        quantity : req.body.quentity,
+        blood_grp : blood_grp,
+        quantity : Number(req.body.quantity),
         date : req.body.date,
         accept : false
     });
