@@ -16,8 +16,8 @@ router.get("/",function(req,res){
 var transporter = nodemailer.createTransport({
     service : 'gmail',
     auth: {
-        user: "u21cs086@coed.svnit.ac.in",
-        pass: "blnpp8923jqQ@",
+        user: "donate.blood24@gmail.com",
+        pass: "yash3112@",
     },
 });
 
@@ -67,7 +67,7 @@ router.post("/signup", (req, res) => {
             // const user = await User.findOne({ email: email });
 
             let mailOptions = {
-                from: "u21cs086@coed.svnit.ac.in", // sender address
+                from: "donate.blood24@gmail.com", // sender address
                 to: `${user.email}`, // list of receivers
                 subject: "Hello Thank you fro sign Up", // Subject line
                 text: `Hii Greetings From SVNIT.
