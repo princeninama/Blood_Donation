@@ -16,8 +16,8 @@ router.get("/",function(req,res){
 var transporter = nodemailer.createTransport({
     service : 'gmail',
     auth: {
-        user: "donate.blood24@gmail.com",
-        pass: "yash3112@",
+        user: "u21cs086@coed.svnit.ac.in",
+        pass: "blnpp8923jqQ@",
     },
 });
 
@@ -155,6 +155,74 @@ router.post("/login", async (req, res) => {
     });
 });
 
+router.get("/forget", (req , res) => {
+    res.render("forget", {username : ""})
+})
+
+router.post("/forget", (req, res) => {
+    let userName = req.body.username; // here i need username of User like you can insert input hidden filed to maintain username
+    User.findOne({ username: userName }, (err, user) => {
+        if (err) {
+            res.json({ success: false, err });
+        } else {
+            let otp = String(Math.floor(Math.random() * 1000000));
+            User.updateOne({username : userName} , {otp : otp} , (err , succ) => {
+                // mail info
+            // we have to enter mail info template to butify our email
+            let mailOptions = {
+                from: "u21cs086@coed.svnit.ac.in", // sender address
+                to: `${user.email}`, // list of receivers
+                subject: "Hello Forget Password Something", // Subject line
+                text: `Hii Greetinfs From SVNIT.
+                        please Enter The Otp To Reset Your Password.`, // plain text body
+                html: `<button>${otp}</button>`, // html body
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log(error);
+                    res.json(error);
+                } else {
+                    res.render("forget" , {username : userName});
+                }
+            });
+            })
+            
+        }
+    });
+});
+
+router.post("/fcpaaword", (req, res) => {
+    let enterOtp = req.body.otp; //otp which user will enter
+    let userName = req.body.username;
+    User.findOne({ username: userName }, (err, user) => {
+        if (err) {
+            res.json({ success: false, err });
+        } else {
+            if (user.otp === enterOtp) {
+                User.findByUsername(userName).then(function(sanitizedUser){
+                    if (sanitizedUser){
+                        sanitizedUser.setPassword(req.body.password, function(){
+                            sanitizedUser.save();
+                            res.status(200).redirect("/login");
+                        });
+                    } else {
+                        res.status(500).json({message: 'This user does not exist'});
+                    }
+                },function(err){
+                    console.error(err);
+                })
+            } else {
+                res.json({
+                    success: false,
+                    error: "otp did not match",
+                    username: user.username,
+                    email: user.email,
+                });
+            }
+        }
+    });
+});
 
 
 router.post("/donate", checkAuthentication, function (req, res) {

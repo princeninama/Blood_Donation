@@ -9,13 +9,11 @@
 </head>
 
 <body>
-    <nav class=" space-x-12 z-10 py-3 bg-black text-white ">
-
-        <button class="ml-8"><a href="INDEX.html"> HOME</a></button>
-
-        <button><a href="availability.html"> AVALIBILITY </a></button>
-        <button> <a href="userlogin.html">LOG IN </a></button>
-        <button><a href="signup.html">SIGN UP</a></button>
+    <nav class=" space-x-12  py-3 bg-black text-white ">
+        <a href="/"> <button class="ml-8">HOME</button></a>
+        <button><a href="/bbank_filter"> AVALIBILITY </a></button>
+        <button> <a href="/login">LOG IN </a></button>
+        <button><a href="/signup">SIGN UP</a></button>
     </nav>
     <img src="images/khoooon.jpeg" class="blur-2xl fixed mt-9 w-full" alt="">
     <div class="text-3xl absolute font-semibold font-mono text-red-500 ml-24 mt-16 underline">
@@ -90,7 +88,7 @@
             <th class="border-separate border-spacing-1 border w-40 border-slate-500 ">
                 Email
             </th>
-            <th class="border-separate border-spacing-1 border w-20 border-slate-500 ">
+            <th class="border-separate border-spacing-1 border w-80 border-slate-500 ">
                 stock
             </th>
         </tr>
@@ -111,7 +109,7 @@
             <td class="border-separate border-spacing-1 border border-slate-500 ">
                 <%= userdata[i].email %>
             </td>
-            <td class="border-separate border-spacing-1 border border-slate-500 ">
+            <td class="border-separate border-spacing-1 w-80 border border-slate-500 ">
                 A+ : <%= banklist[i].blood.Ap %>
                 B+ :  <%= banklist[i].blood.Bp %>
                 A- : <%= banklist[i].blood.An %>
